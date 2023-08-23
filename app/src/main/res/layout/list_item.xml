@@ -6,14 +6,16 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:orientation="horizontal"
-    android:padding="10dp"
-    android:background="@drawable/border">
+    android:padding="10dp">
+<!--    android:background="@drawable/border">  added code to dynamically adjust border based on dark mode-->
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY"
+        android:contentDescription="Images provided by new site"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -28,7 +30,6 @@
             android:layout_height="wrap_content"
             android:text="SampleText"
             android:textSize="16sp"
-
             tools:ignore="HardcodedText" />
         <Space
             android:layout_width="match_parent"
@@ -42,38 +43,3 @@
             tools:ignore="HardcodedText" />
     </LinearLayout>
 </LinearLayout>
-
-
-
-
-
-
-
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:layout_margin="10dp"-->
-<!--    android:orientation="horizontal"-->
-<!--    android:padding="10dp"-->
-<!--    android:background="@drawable/border">-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView"-->
-<!--        android:layout_width="120dp"-->
-<!--        android:layout_height="120dp"-->
-<!--        android:scaleType="fitXY"-->
-
-<!--        />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="center_vertical"-->
-<!--        android:paddingStart="10dp"-->
-<!--        android:text="test3" />-->
-
-<!--</LinearLayout>-->
-
