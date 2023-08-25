@@ -28,6 +28,10 @@
             android:name=".ShowSummaryActivity"
             android:label="Article Summary"
             />
+        <activity
+            android:name=".WebViewActivity"
+            android:label="Web View Activity" />
+
 
     </application>
 

@@ -17,7 +17,6 @@
         app:titleTextColor="@color/textColorLight"
         android:background="@color/barColor"/>
 
-    <!-- Static Image and Text at the Top -->
     <Space
         android:layout_width="match_parent"
         android:layout_height="20dp"/>
@@ -30,7 +29,38 @@
         android:src="@drawable/ic_launcher_foreground"
         android:contentDescription="attached_Image"
         tools:ignore="HardcodedText" />
-
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+    <!--   Issue: TextView does not display text, need to fix-->
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:text="Author not available"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        tools:ignore="HardcodedText" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+    <TextView
+        android:id="@+id/dated"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:text="Date not available"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="12sp"
+        android:textAlignment="center"
+        tools:ignore="HardcodedText" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
     <TextView
         android:id="@+id/topTextView"
         android:layout_width="wrap_content"
@@ -47,10 +77,11 @@
     <TextView
         android:id="@+id/scrollTextView"
         android:layout_width="match_parent"
-        android:layout_height="251dp"
+        android:layout_height="100dp"
         android:padding="16dp"
-        android:text=""
+        android:text="Summary not available"
         android:layout_gravity="center"
+        android:textAlignment="center"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp"
         tools:ignore="HardcodedText" />

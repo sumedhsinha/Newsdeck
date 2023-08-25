@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/rss_feed_1"
+            android:title="RSS Feed 1" />
+        <item
+            android:id="@+id/rss_feed_2"
+            android:title="RSS Feed 2" />
+        <!-- can add more items for other RSS feeds as needed -->
+    </group>
+</menu>

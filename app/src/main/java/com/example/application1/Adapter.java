@@ -24,16 +24,28 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     protected ArrayList<String> links;
 
     //
-
+    protected ArrayList<String> authors;
+    protected ArrayList<String> pubDate;
+    protected ArrayList<String> summaries;
     //
     protected Context context;
 
 
-    public Adapter(Context context, ArrayList<String> images, ArrayList<String> text, ArrayList<String> links) {
+//    public Adapter(Context context, ArrayList<String> images, ArrayList<String> text, ArrayList<String> links) {
+//        this.context = context;
+//        this.images = images;
+//        this.text = text;
+//        this.links = links;
+//
+//    }
+    public Adapter(Context context, ArrayList<String> images, ArrayList<String> text, ArrayList<String> links, ArrayList<String> authors, ArrayList<String> pubDate, ArrayList<String> summaries) {
         this.context = context;
         this.images = images;
         this.text = text;
         this.links = links;
+        this.authors = authors;
+        this.pubDate = pubDate;
+        this.summaries = summaries;
 
     }
 
@@ -78,13 +90,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             public void onClick(View v) {
                 String articleTitle = text.get(position);
                 String articleImage = images.get(position);
-//                String articleSummary = text.get(position);
+                String articleSummary = summaries.get(position);
                 String articleUrl = links.get(position);
+                String pubDated = pubDate.get(position);
+                String author = authors.get(position);
 
                 Intent intent = new Intent(context, ShowSummaryActivity.class);
                 intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_TITLE, articleTitle);
                 intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_IMAGE, articleImage);
-//                intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_SUMMARY, articleSummary);
+                intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_SUMMARY, articleSummary);
+                intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_PUBDATE, pubDated);
+                intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_AUTHORS, author);
                 intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_URL, articleUrl);
                 context.startActivity(intent);
             }

@@ -29,18 +29,41 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;
+import androidx.core.view.GravityCompat;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle drawerToggle;
     ArrayList<String> images = new ArrayList<>();
     ArrayList<String> text = new ArrayList<>();
-    ArrayList<String> links = new ArrayList<>(); // Added links ArrayList
+    ArrayList<String> links = new ArrayList<>();
+    ArrayList<String> authors = new ArrayList<>();
+    ArrayList<String> pubDate = new ArrayList<>();
+    ArrayList<String> summaries = new ArrayList<>();
     ArrayList<RssFeed> rssFeeds = new ArrayList<>();
 
     //
-
+    /*
+    Tasks remaining:
+        Update adapter and layout to incorporate the PubDate and authors
+        Update RssFeed.java to obtain tags for the newly added portions
+        Update
+    */
     //
 
     @Override
@@ -54,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        Adapter adapter = new Adapter(this, images, text, links); // Passing the links ArrayList
+        Adapter adapter = new Adapter(this, images, text, links, authors, pubDate, summaries); // Passing the links ArrayList
         recyclerView.setAdapter(adapter);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -65,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        rssFeeds.add(new RssFeed("https://www.hindustantimes.com/feeds/rss/trending/rssfeed.xml", "item","title", "link", "media:content"));
-        //rssFeeds.add(new RssFeed("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml", "item", "title", "link", "media:content"));
+        //rssFeeds.add(new RssFeed("https://www.hindustantimes.com/feeds/rss/trending/rssfeed.xml", "item","title", "link", "media:content"));
+        rssFeeds.add(new RssFeed("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml", "item", "title", "link", "media:content"));
         // Fetch data when the app is first opened
         fetchAndDisplayData();
     }
@@ -86,9 +109,11 @@ public class MainActivity extends AppCompatActivity {
         Collections.shuffle(text, new Random(seed));
         Collections.shuffle(links, new Random(seed)); // Shuffling links along with other data
         //
-
+        Collections.shuffle(authors, new Random(seed));
+        Collections.shuffle(pubDate, new Random(seed));
+        Collections.shuffle(summaries, new Random(seed));
         //
-        Adapter adapter = new Adapter(MainActivity.this, images, text, links);
+        Adapter adapter = new Adapter(MainActivity.this, images, text, links, authors, pubDate, summaries);
         recyclerView.setAdapter(adapter);
     }
 
@@ -112,6 +137,11 @@ public class MainActivity extends AppCompatActivity {
                 activity.text.clear();
                 activity.links.clear();
                 activity.images.clear();
+                //
+                activity.authors.clear();
+                activity.pubDate.clear();
+                activity.summaries.clear();
+                //
 
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
@@ -124,8 +154,16 @@ public class MainActivity extends AppCompatActivity {
                     activity.text.add(getElement.getElementsByTagName(rssFeed.getTitleTag()).item(0).getTextContent());
                     activity.links.add(getElement.getElementsByTagName(rssFeed.getLinkTag()).item(0).getTextContent());
 
-                    //
+                    //work in progress - to change adapter
+                    activity.pubDate.add(getElement.getElementsByTagName("pubDate").item(0).getTextContent());
+                    activity.authors.add(getElement.getElementsByTagName("dc:creator").item(0).getTextContent());
+                    // to reconfigure adapter to accept authors and pubDates
+                    Log.d("authors", getElement.getElementsByTagName("dc:creator").item(0).getTextContent());
+                    Log.d("pubDate", getElement.getElementsByTagName("pubDate").item(0).getTextContent());
 
+                    //summary works as intended
+                    activity.summaries.add(getElement.getElementsByTagName("description").item(0).getTextContent());
+                    //Log.d("pubDateCheck", getElement.getElementsByTagName("pubDate").item(0).getTextContent());
                     //
 
                     NodeList enclosures = getElement.getElementsByTagName(rssFeed.getImageTag());
@@ -146,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             MainActivity activity = activityRef.get();
             if (activity != null) {
-                Adapter adapter = new Adapter(activity, activity.images, activity.text, activity.links);
+                Adapter adapter = new Adapter(activity, activity.images, activity.text, activity.links, activity.authors, activity.pubDate, activity.summaries);
                 activity.recyclerView.setAdapter(adapter);
             }
         }

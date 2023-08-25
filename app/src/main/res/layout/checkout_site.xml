@@ -11,13 +11,49 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:title = "NewsDeck"
+        app:title="NewsDeck"
         app:titleTextColor="@color/textColorLight"
         android:background="@color/barColor"/>
 
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/bottomButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open in Browser"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        tools:ignore="HardcodedText"
+        android:padding="10dp" />
 
 </LinearLayout>
+
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    tools:context=".MainActivity">-->
+
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        app:title = "NewsDeck"-->
+<!--        app:titleTextColor="@color/textColorLight"-->
+<!--        android:background="@color/barColor"/>-->
+
+<!--    <WebView-->
+<!--        android:id="@+id/webView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
+
+<!--</LinearLayout>-->

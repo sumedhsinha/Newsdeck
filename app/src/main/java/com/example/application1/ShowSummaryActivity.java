@@ -52,6 +52,8 @@ public class ShowSummaryActivity extends AppCompatActivity {
     public static final String EXTRA_ARTICLE_IMAGE = "article_image";
     public static final String EXTRA_ARTICLE_SUMMARY = "article_summary";
     public static final String EXTRA_ARTICLE_URL = "article_url";
+    public static final String EXTRA_ARTICLE_AUTHORS = "authors";
+    public static final String EXTRA_ARTICLE_PUBDATE = "pubdate";
 
     private Button readMoreButton;
 
@@ -60,32 +62,41 @@ public class ShowSummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.show_summary);
 
-//        TextView summaryTextView = findViewById(R.id.scrollTextView);
+        TextView summaryTextView = findViewById(R.id.scrollTextView);
         TextView titleTextView = findViewById(R.id.topTextView);
         ImageView articleImageView = findViewById(R.id.imageView);
+        TextView authView = findViewById(R.id.author);
+        TextView date = findViewById(R.id.dated);
         readMoreButton = findViewById(R.id.readMoreButton);
 
         // Get the title, image, summary, and URL from the intent's extras
         String articleTitle = getIntent().getStringExtra(EXTRA_ARTICLE_TITLE);
         String articleImage = getIntent().getStringExtra(EXTRA_ARTICLE_IMAGE);
-//        String articleSummary = getIntent().getStringExtra(EXTRA_ARTICLE_SUMMARY);
+        String articleSummary = getIntent().getStringExtra(EXTRA_ARTICLE_SUMMARY);
+        //
+        String authors = getIntent().getStringExtra(EXTRA_ARTICLE_AUTHORS);
+        String pubdate = getIntent().getStringExtra(EXTRA_ARTICLE_PUBDATE);
+        //
         final String articleUrl = getIntent().getStringExtra(EXTRA_ARTICLE_URL);
 
         // Set the title, image, and summary in the appropriate views
         titleTextView.setText(articleTitle);
         Picasso.get().load(articleImage).into(articleImageView);
-//        summaryTextView.setText(articleSummary);
+        summaryTextView.setText(articleSummary);
+        authView.setText(authors);
+        date.setText(pubdate);
 
         readMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openBrowser(articleUrl);
+                openWebView(articleUrl);
             }
         });
     }
 
-    private void openBrowser(String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+    private void openWebView(String url) {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra(WebViewActivity.EXTRA_ARTICLE_URL, url);
         startActivity(intent);
     }
 }
