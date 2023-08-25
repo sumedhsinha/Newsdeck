@@ -59,12 +59,30 @@ public class MainActivity extends AppCompatActivity {
 
     //
     /*
-    Tasks remaining:
-        Update adapter and layout to incorporate the PubDate and authors
-        Update RssFeed.java to obtain tags for the newly added portions
-        Fix multi source menus
-        Add custom theme
-        Add app icon
+    Tasks:
+
+        to do:-
+            Update adapter and layout to incorporate the PubDate and authors
+            Update RssFeed.java to obtain tags for the newly added portions
+            Fix multi source menus
+            Add custom theme
+            Add app icon
+
+        possibilities:-
+            Possibly combine ArrayLists and have one object
+            Change bkg colors depending upon dark mode (already included for top bar, but background does not change)
+
+        future improvements:-
+            Remove buttons and incorporate onclick for recyclerview
+            Better text formatting
+            Side navigation drawer
+            Replace deprecated components like Background/Async tasks with Lambda/newer versions - suppressed warnings
+
+        Nice to have later:-
+            User Accounts
+            Notifications
+            customisable home screen
+
     */
     //
 
