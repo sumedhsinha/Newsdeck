@@ -19,7 +19,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="15dp"/>
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="369dp"
@@ -31,12 +31,26 @@
         tools:ignore="HardcodedText" />
     <Space
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="5dp"/>
+    <TextView
+        android:id="@+id/dated"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:text="Date not available"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="11sp"
+        android:textAlignment="center"
+        tools:ignore="HardcodedText" />
+<!--    <Space-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="10dp"/>-->
     <!--   Issue: TextView does not display text, need to fix-->
     <TextView
         android:id="@+id/author"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
         android:padding="16dp"
         android:text="Author not available"
@@ -44,23 +58,10 @@
         android:textSize="12sp"
         android:textAlignment="center"
         tools:ignore="HardcodedText" />
+
     <Space
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
-    <TextView
-        android:id="@+id/dated"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:padding="16dp"
-        android:text="Date not available"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="12sp"
-        android:textAlignment="center"
-        tools:ignore="HardcodedText" />
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="10dp"/>
     <TextView
         android:id="@+id/topTextView"
         android:layout_width="wrap_content"

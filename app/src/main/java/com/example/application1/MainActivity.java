@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         future improvements:-
             Remove buttons and incorporate onclick for recyclerview
+            Filter by topic - tech, politics, science, money/investing, etc.
             Better text formatting
             Side navigation drawer
             Replace deprecated components like Background/Async tasks with Lambda/newer versions - suppressed warnings
@@ -110,14 +111,13 @@ public class MainActivity extends AppCompatActivity {
 
         //rssFeeds.add(new RssFeed("https://www.hindustantimes.com/feeds/rss/trending/rssfeed.xml", "item","title", "link", "media:content"));
         rssFeeds.add(new RssFeed("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml", "item", "title", "link", "media:content"));
+        //rssFeeds.add(new RssFeed("https://www.indiatoday.in/rss/home", "item", "title", "link", "media:content"));
         // Fetch data when the app is first opened
         fetchAndDisplayData();
     }
 
     private void fetchAndDisplayData() {
-        //noinspection deprecation
 
-        //new FetchDataTask(this, "https://www.hindustantimes.com/feeds/rss/trending/rssfeed.xml").execute();
         for (RssFeed rssFeed : rssFeeds) {
             new FetchDataTask(this, rssFeed).execute();
         }
@@ -178,8 +178,9 @@ public class MainActivity extends AppCompatActivity {
                     activity.pubDate.add(getElement.getElementsByTagName("pubDate").item(0).getTextContent());
                     activity.authors.add(getElement.getElementsByTagName("dc:creator").item(0).getTextContent());
                     // to reconfigure adapter to accept authors and pubDates
-                    Log.d("authors", getElement.getElementsByTagName("dc:creator").item(0).getTextContent());
-                    Log.d("pubDate", getElement.getElementsByTagName("pubDate").item(0).getTextContent());
+
+                    //Log.d("authors", getElement.getElementsByTagName("dc:creator").item(0).getTextContent());
+                    //Log.d("pubDate", getElement.getElementsByTagName("pubDate").item(0).getTextContent());
 
                     //summary works as intended
                     activity.summaries.add(getElement.getElementsByTagName("description").item(0).getTextContent());
