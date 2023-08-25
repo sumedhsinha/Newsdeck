@@ -2,6 +2,9 @@ package com.example.application1;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +17,12 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Random;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> images = new ArrayList<>();
     ArrayList<String> text = new ArrayList<>();
     ArrayList<String> links = new ArrayList<>(); // Added links ArrayList
+    ArrayList<RssFeed> rssFeeds = new ArrayList<>();
+
+    //
+
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +65,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        rssFeeds.add(new RssFeed("https://www.hindustantimes.com/feeds/rss/trending/rssfeed.xml", "item","title", "link", "media:content"));
+        //rssFeeds.add(new RssFeed("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml", "item", "title", "link", "media:content"));
         // Fetch data when the app is first opened
         fetchAndDisplayData();
     }
 
     private void fetchAndDisplayData() {
         //noinspection deprecation
-        new FetchDataTask(this, "https://timesofindia.indiatimes.com/rssfeedstopstories.cms").execute();
+
+        //new FetchDataTask(this, "https://www.hindustantimes.com/feeds/rss/trending/rssfeed.xml").execute();
+        for (RssFeed rssFeed : rssFeeds) {
+            new FetchDataTask(this, rssFeed).execute();
+        }
     }
 
     private void rearrangeItems() {
@@ -66,20 +85,22 @@ public class MainActivity extends AppCompatActivity {
         Collections.shuffle(images, new Random(seed));
         Collections.shuffle(text, new Random(seed));
         Collections.shuffle(links, new Random(seed)); // Shuffling links along with other data
+        //
+
+        //
         Adapter adapter = new Adapter(MainActivity.this, images, text, links);
         recyclerView.setAdapter(adapter);
     }
 
     private static class FetchDataTask extends AsyncTask<Void, Void, Void> {
         private final WeakReference<MainActivity> activityRef;
-        private final String urlString;
+        private final RssFeed rssFeed;
 
-        public FetchDataTask(MainActivity activity, String urlString) {
+        public FetchDataTask(MainActivity activity, RssFeed rssFeed) {
             activityRef = new WeakReference<>(activity);
-            this.urlString = urlString;
+            this.rssFeed = rssFeed;
         }
 
-        /** @noinspection deprecation*/
         @Override
         protected Void doInBackground(Void... voids) {
             MainActivity activity = activityRef.get();
@@ -94,24 +115,26 @@ public class MainActivity extends AppCompatActivity {
 
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
-                Document readFile = builder.parse(new InputSource(new URL(urlString).openStream()));
+                Document readFile = builder.parse(new InputSource(new URL(rssFeed.getUrl()).openStream()));
                 readFile.getDocumentElement().normalize();
-                NodeList nodeList = readFile.getElementsByTagName("item");
-
+                NodeList nodeList = readFile.getElementsByTagName(rssFeed.getItem());
                 for (int y = 0; y < nodeList.getLength(); y++) {
                     Node getNode = nodeList.item(y);
                     Element getElement = (Element) getNode;
-                    activity.text.add(getElement.getElementsByTagName("title").item(0).getTextContent());
-                    activity.links.add(getElement.getElementsByTagName("link").item(0).getTextContent());
+                    activity.text.add(getElement.getElementsByTagName(rssFeed.getTitleTag()).item(0).getTextContent());
+                    activity.links.add(getElement.getElementsByTagName(rssFeed.getLinkTag()).item(0).getTextContent());
 
-                    NodeList enclosures = getElement.getElementsByTagName("enclosure");
+                    //
+
+                    //
+
+                    NodeList enclosures = getElement.getElementsByTagName(rssFeed.getImageTag());
                     if (enclosures.getLength() > 0) {
                         Element enclosure = (Element) enclosures.item(0);
                         String imageUrl = enclosure.getAttribute("url");
                         activity.images.add(imageUrl);
                     }
                 }
-
             } catch (IOException | SAXException | ParserConfigurationException e) {
                 e.printStackTrace();
             }

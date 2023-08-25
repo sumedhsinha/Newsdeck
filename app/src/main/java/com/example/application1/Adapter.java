@@ -2,6 +2,7 @@ package com.example.application1;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     protected ArrayList<String> images;
     protected ArrayList<String> text;
     protected ArrayList<String> links;
+
+    //
+
+    //
     protected Context context;
 
 
@@ -29,6 +34,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         this.images = images;
         this.text = text;
         this.links = links;
+
     }
 
     @NonNull
@@ -56,11 +62,31 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         Picasso.get().load(imageUrl).into(holder.images);
         holder.text.setText(text.get(position));
 
+        //
+
+        //
+
+//        holder.readMoreButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String link = links.get(position);
+//                openBrowser(link);
+//            }
+//        });
         holder.readMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String link = links.get(position);
-                openBrowser(link);
+                String articleTitle = text.get(position);
+                String articleImage = images.get(position);
+//                String articleSummary = text.get(position);
+                String articleUrl = links.get(position);
+
+                Intent intent = new Intent(context, ShowSummaryActivity.class);
+                intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_TITLE, articleTitle);
+                intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_IMAGE, articleImage);
+//                intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_SUMMARY, articleSummary);
+                intent.putExtra(ShowSummaryActivity.EXTRA_ARTICLE_URL, articleUrl);
+                context.startActivity(intent);
             }
         });
     }

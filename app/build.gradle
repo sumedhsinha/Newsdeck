@@ -36,7 +36,7 @@ android {
 
 dependencies {
 
-
+//    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation 'com.google.android.material:material:<version>'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
