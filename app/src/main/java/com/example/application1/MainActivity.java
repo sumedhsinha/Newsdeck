@@ -62,7 +62,9 @@ public class MainActivity extends AppCompatActivity {
     Tasks remaining:
         Update adapter and layout to incorporate the PubDate and authors
         Update RssFeed.java to obtain tags for the newly added portions
-        Update
+        Fix multi source menus
+        Add custom theme
+        Add app icon
     */
     //
 
